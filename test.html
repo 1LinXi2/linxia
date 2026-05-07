@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>摇摆小羊</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fdf6e3;  /* 柔和的浅米色背景 */
+      font-family: "Arial", sans-serif;
+    }
+
+    /* 摇摆动画：小羊左右晃动 */
+    @keyframes swing {
+      0%   { transform: rotate(0deg); }
+      25%  { transform: rotate(8deg); }
+      50%  { transform: rotate(0deg); }
+      75%  { transform: rotate(-8deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* 小羊容器，负责动画 */
+    .sheep-wrapper {
+      animation: swing 1.2s ease-in-out infinite;
+      transform-origin: bottom center; /* 以底部为轴心摇摆，更像站着晃 */
+      margin-bottom: 40px;
+    }
+
+    /* 图片本身的样式 */
+    .sheep-img {
+      width: 200px;        /* 调整小羊大小 */
+      height: auto;
+      display: block;
+    }
+
+    /* 按钮容器 */
+    .buttons {
+      display: flex;
+      gap: 40px;
+    }
+
+    /* 按钮基础样式 */
+    .btn {
+      padding: 15px 40px;
+      font-size: 28px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    /* Yes 按钮 – 甜粉色 */
+    .btn-yes {
+      background: #ff7eb3;
+    }
+
+    /* No 按钮 – 淡蓝色 */
+    .btn-no {
+      background: #6c8ecc;
+      position: relative;  /* 为“逃跑”效果做准备 */
+    }
+
+    /* 简单的响应式：手机上按钮别太大 */
+    @media (max-width: 500px) {
+      .btn {
+        padding: 12px 30px;
+        font-size: 22px;
+      }
+      .sheep-img {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ★ 图片嵌入在这儿！ -->
+  <div class="sheep-wrapper">
+    <!-- 把 src 换成你的图片路径，例如 src="sheep.png" -->
+    <img 
+      class="sheep-img" 
+      src="sheep.png" 
+      alt="可爱的小羊"
+    >
+  </div>
+
+  <!-- 两个选项按钮 -->
+  <div class="buttons">
+    <button class="btn btn-yes" onclick="sayYes()">Yes 😊</button>
+    <button class="btn btn-no" id="noBtn">No 🐾</button>
+  </div>
+
+  <script>
+    // 点击 Yes 后的反应（可以改成你想要的文字或跳转）
+    function sayYes() {
+      alert("耶！小羊开心地转圈圈～🐑💕");
+    }
+
+    // 让 No 按钮变得“狡猾”：鼠标移上去就随机跑开
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", function() {
+      // 随机偏移量，让按钮在可视范围内乱跑
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top  = randomY + "px";
+    });
+
+    // 如果实在点到了 No（触摸屏），也可以给个提示
+    noBtn.addEventListener("click", function() {
+      alert("再想想嘛～ 试试 Yes 好不好？🥺");
+    });
+  </script>
+
+</body>
+</html>
