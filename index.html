@@ -105,16 +105,13 @@
   </div>
 
   <script>
-    // 点击 Yes 后的反应（可以改成你想要的文字或跳转）
+    
     function sayYes() {
-      alert("耶！小羊开心地转圈圈～🐑💕");
+      alert("祝格格天天开心，高考加油呀");
     }
-
-    // 让 No 按钮变得“狡猾”：鼠标移上去就随机跑开
     const noBtn = document.getElementById("noBtn");
 
     noBtn.addEventListener("mouseover", function() {
-      // 随机偏移量，让按钮在可视范围内乱跑
       const maxX = window.innerWidth - noBtn.offsetWidth - 20;
       const maxY = window.innerHeight - noBtn.offsetHeight - 20;
       const randomX = Math.random() * maxX;
